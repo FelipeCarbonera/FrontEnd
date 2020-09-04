@@ -1,0 +1,160 @@
+﻿@model IEnumerable<Frontend.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Categorias</h1>
+
+<br />
+
+<script>
+    var updateUrlModal = '@Url.Action("Edit", "Category")';
+</script>
+
+@if (Model.Count() == 0)
+{
+    <hr />
+    <h4>
+        <small>
+            Não existe nem uma Categoria cadastrada, clique no botão abaixo para inserir a primeira categoria.
+        </small>
+    </h4>
+    <hr />
+
+    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#create-category-modal">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+            <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+        </svg>
+        Adicionar Categoria
+    </button>
+}
+else
+{
+
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th scope="col" colspan="2" style="text-align: right">
+                    Excluir Categoria
+                    <svg data-toggle="tooltip" title="Só é permitido excluir uma categoria que não esteja sendo utilizada em um produto." width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-question-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" />
+                    </svg>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @using (Html.BeginForm("Delete", "Category", FormMethod.Post))
+            {
+                int qtd = 1;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <th>@qtd</th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-outline-info" data-categoryId="@item.Id" data-toggle="modal" data-target="#edit-category-modal">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                </svg>
+                                Editar
+                            </button>
+                        </td>
+                        <td>
+                            @if (item.InUse)
+                            {
+                                <input disabled class="check-box" type="checkbox">
+                            }
+                            else
+                            {
+                                <input class="check-box " type="checkbox" name="ids-category-delete" value="@item.Id ">
+                            }
+                        </td>
+                    </tr>
+
+                    {
+                        qtd++;
+                    }
+                }
+                <tr>
+                    <td colspan="6" style="text-align: right;">
+                        <h6>
+                            Para excluir alguma/algumas categoria(s), marque acima e clique em Excluir
+                        </h6>
+                        <input class="btn btn-outline-dark" id="delete-categories-btn" type="submit" value="Excluir" disabled />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="text-align: right;">
+                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#create-category-modal">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                            </svg>
+                            Adicionar Categoria
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<!-- Modal Create Category -->
+<div class="modal fade" id="create-category-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Adicionar Categoria</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.Action("Create", new { partial = true })
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Category -->
+<div class="modal fade" id="edit-category-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Categoria</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="update-modal-body-div">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/SiteScripts/Category/Edit.js"></script>
+<script src="~/Scripts/SiteScripts/Category/Index.js"></script>
+
+

@@ -1,0 +1,22 @@
+﻿
+/*
+    ARQUIVO DE ESTILOS CSS PARA A PAGINA HOME
+*/
+
+#selected-products {
+    width: 140px;
+    height: 50px;
+    position: fixed;
+    left: 81%;
+    top: 90%;
+}
+
+.imgSize {
+    height: 337px;
+}
+
+
+#total-price-div {
+    text-align: end;
+    margin: 10px;
+}

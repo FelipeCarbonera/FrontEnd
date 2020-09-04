@@ -1,0 +1,22 @@
+﻿#div-content-form-create-product {
+    text-align: center;
+}
+
+#create-product-form {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    width: 500px;
+}
+
+#create-product-submit-div {
+    text-align: end;
+}
+
+#div-buttons-create-product {
+}
+
+#create-product-form input, textarea, select {
+    max-width: unset !important;
+}

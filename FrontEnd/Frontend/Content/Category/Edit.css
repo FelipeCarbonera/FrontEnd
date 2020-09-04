@@ -1,0 +1,7 @@
+﻿#edit-category-form input, textarea {
+    max-width: unset !important;
+}
+
+#edit-category-submit-div {
+    text-align: end;
+}

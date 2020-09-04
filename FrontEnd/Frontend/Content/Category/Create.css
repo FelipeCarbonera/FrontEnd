@@ -1,0 +1,22 @@
+﻿#div-content-form-create-category {
+    text-align: center;
+}
+
+#create-category-form {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    width: 500px;
+}
+
+#create-category-submit-div {
+    text-align: end;
+}
+
+#div-buttons-create-category {
+}
+
+#create-category-form input, textarea, select {
+    max-width: unset !important;
+}

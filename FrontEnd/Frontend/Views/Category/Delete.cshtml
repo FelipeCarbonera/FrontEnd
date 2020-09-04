@@ -1,0 +1,57 @@
+﻿@model List<Frontend.Models.Category>
+
+@{
+    ViewBag.Title = "Delete";
+
+    string um = " dessa categoria ", varios = "dessas categorias ";
+
+    List<long> ids = new List<long>();
+
+    Model.ForEach(c => ids.Add(c.Id));
+}
+
+<link href="~/Content/Category/Delete.css" rel="stylesheet" />
+
+<h2>Excluir Categoria</h2>
+
+<h3>
+    Confirme a exclusão @if (Model.Count == 1){@um}else{@varios} clicando em Confirmar!
+</h3>
+<hr />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div id="delete-category-confirm-div">
+            <dl class="dl-horizontal">
+
+                <dt>
+                    @Html.DisplayNameFor(model => item.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => item.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => item.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => item.Description)
+                </dd>
+            </dl>
+        </div>
+    }
+
+</div>
+<hr />
+
+@using (Html.BeginForm("ConfirmDelete", "Category", FormMethod.Post))
+{
+    @Html.EditorFor(model => ids, new { htmlAttributes = new { hidden = "hidden" } });
+    <div class="form-actions no-color">
+        <a class="btn btn-outline-info" href="@Url.Action("Index", "Category")">Voltar</a>
+
+        <input type="submit" value="Confirmar!" class="btn btn-outline-danger" />
+    </div>
+}

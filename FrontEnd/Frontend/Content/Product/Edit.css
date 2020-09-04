@@ -1,0 +1,7 @@
+﻿#edit-product-form input, textarea, select {
+    max-width: unset !important;
+}
+
+#edit-product-submit-div {
+    text-align: end;
+}

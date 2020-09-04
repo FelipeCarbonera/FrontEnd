@@ -1,0 +1,81 @@
+﻿@model Frontend.Models.Product
+
+@if (ViewBag.Modal != null && ViewBag.Modal == true)
+{
+    <link href="~/Content/Product/CreateModal.css" rel="stylesheet" />
+}
+else
+{
+    <link href="~/Content/Product/Create.css" rel="stylesheet" />
+}
+
+<script src="~/Scripts/SiteScripts/Product/Create.js"></script>
+
+<div id="div-content-form-create-product">
+    @if (ViewBag.Modal == null || ViewBag.Modal == false)
+    {
+        <div>
+            <h4>Adicionar Produto</h4>
+        </div>
+    }
+    @using (Html.BeginForm("SaveCreate", "Product", FormMethod.Post, new { id = "create-product-form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2", })
+                <div>
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control money-mask" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UrlImage, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.EditorFor(model => model.UrlImage, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UrlImage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div>
+                    @Html.DropDownListFor(model => model.ID_Category, new SelectList(ViewBag.Categories, "Id", "Name"), new { @class = "form-control text-box single-line" })
+                    @Html.ValidationMessageFor(model => model.ID_Category, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="container">
+                <div class="row" id="div-buttons-create-product">
+                    <div class="col">
+                        <a class="btn btn-outline-info" href="#" data-dismiss="modal" aria-label="Close">Voltar</a>
+                    </div>
+
+                    <div class="col" id="create-product-submit-div">
+                        <input type="submit" value="Salvar" class="btn btn-outline-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

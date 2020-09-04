@@ -1,0 +1,68 @@
+﻿@model List<Frontend.Models.Product>
+
+@{
+    ViewBag.Title = "Delete";
+
+    string um = " desse produto ", varios = "desses produtos ";
+
+    List<long> ids = new List<long>();
+
+    Model.ForEach(c => ids.Add(c.Id));
+}
+
+<link href="~/Content/Product/Delete.css" rel="stylesheet" />
+
+<h2>Excluir Produto</h2>
+
+<h3>
+    Confirme a exclusão @if (Model.Count == 1)
+    {@um}
+else
+{@varios} clicando em Confirmar!
+</h3>
+<hr />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div id="delete-product-confirm-div">
+            <dl class="dl-horizontal">
+
+                <dt>
+                    @Html.DisplayNameFor(model => item.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => item.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => item.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => item.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => item.Category)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => item.Category.Name)
+                </dd>
+            </dl>
+        </div>
+    }
+
+</div>
+<hr />
+
+@using (Html.BeginForm("ConfirmDelete", "Product", FormMethod.Post))
+{
+    @Html.EditorFor(model => ids, new { htmlAttributes = new { hidden = "hidden" } });
+    <div class="form-actions no-color">
+        <a class="btn btn-outline-info" href="@Url.Action("Index", "Product")">Voltar</a>
+
+        <input type="submit" value="Confirmar!" class="btn btn-outline-danger" />
+    </div>
+}

@@ -1,0 +1,7 @@
+﻿#create-category-form input, textarea, select {
+    max-width: unset !important;
+}
+
+#create-category-submit-div {
+    text-align: end;
+}
