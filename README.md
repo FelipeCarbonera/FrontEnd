@@ -8,6 +8,8 @@ felipe_carbo@hotmail.com
 
 --
 
+O Script para criação do banco de dados em MySQL está no arquivo Script.sql (na raiz do projeto)
+
 Para o Frontend, foi utilizado o ASP.NET MVC 5.2.7 com .NET Framework 4.8
 (Bootstrap 4.5 | JQuery 3.5.1)
 
